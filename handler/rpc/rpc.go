@@ -60,8 +60,8 @@ func (b *buffer) Write(_ []byte) (int, error) {
 }
 
 // strategy is a hack for selection
-func strategy(services []*registry.Service) selector.Strategy {
-	return func(_ []*registry.Service) selector.Next {
+func strategy() selector.Strategy {
+	return func(services []*registry.Service) selector.Next {
 		// ignore input to this function, use services above
 		return selector.Random(services)
 	}
@@ -105,7 +105,7 @@ func (h *rpcHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	c := h.opts.Service.Client()
 
 	// create strategy
-	so := selector.WithStrategy(strategy(service.Services))
+	so := selector.WithStrategy(strategy())
 
 	// get payload
 	br, err := requestPayload(r)

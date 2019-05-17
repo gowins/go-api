@@ -66,7 +66,7 @@ func (a *apiHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// create the context from headers
 	cx := ctx.FromRequest(r)
 	// create strategy
-	so := selector.WithStrategy(strategy(service.Services))
+	so := selector.WithStrategy(strategy())
 
 	if err := c.Call(cx, req, rsp, client.WithSelectOption(so)); err != nil {
 		w.Header().Set("Content-Type", "application/json")
