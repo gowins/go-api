@@ -146,7 +146,7 @@ func (h *rpcHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			if e == nil {
 				break
 			} else if ce := errors.Parse(e.Error());
-				(ce.Detail != "" && !strings.Contains(ce.Detail, balancer.ErrTransientFailure.Error())) {
+				ce.Detail != "" && !strings.Contains(ce.Detail, balancer.ErrTransientFailure.Error()) {
 				break
 			}
 		}
