@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"regexp"
 	"strings"
 	"sync"
 	"time"
@@ -283,8 +282,7 @@ func (r *registryRouter) Endpoint(req *http.Request) (*api.Service, error) {
 
 		// 3. try match paths
 		for _, p := range ep.Path {
-			re, err := regexp.CompilePOSIX(p)
-			if err == nil && re.MatchString(req.URL.Path) {
+			if p == req.URL.Path {
 				pathMatch = true
 				break
 			}
