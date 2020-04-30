@@ -239,10 +239,13 @@ func (r *registryRouter) Endpoint(req *http.Request) (*api.Service, error) {
 		return nil, errors.New("router closed")
 	}
 
+	svc, name := apiRoute(req.URL.Path)
+	key := fmt.Sprintf("%s:%s", svc, name)
+
 	r.RLock()
 	defer r.RUnlock()
 
-	if e, ok := r.eps["wpt.api.cron:Cron.List"]; ok {
+	if e, ok := r.eps[key]; ok {
 		return e, nil
 	}
 
