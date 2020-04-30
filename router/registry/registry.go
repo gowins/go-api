@@ -240,7 +240,7 @@ func (r *registryRouter) Endpoint(req *http.Request) (*api.Service, error) {
 	}
 
 	svc, name := apiRoute(req.URL.Path)
-	key := fmt.Sprintf("%s:%s", svc, name)
+	key := fmt.Sprintf("%s.%s:%s", r.opts.Namespace, svc, name)
 
 	r.RLock()
 	defer r.RUnlock()
