@@ -242,6 +242,10 @@ func (r *registryRouter) Endpoint(req *http.Request) (*api.Service, error) {
 	r.RLock()
 	defer r.RUnlock()
 
+	if e, ok := r.eps["wpt.api.cron:Cron.List"]; ok {
+		return e, nil
+	}
+
 	// use the first match
 	// TODO: weighted matching
 	for _, e := range r.eps {
