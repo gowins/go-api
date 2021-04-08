@@ -1,6 +1,6 @@
 package resolver
 
-// NewOptions returns new initialised options
+// NewOptions returns new initialized options
 func NewOptions(opts ...Option) Options {
 	var options Options
 	for _, o := range opts {

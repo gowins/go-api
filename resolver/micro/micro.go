@@ -2,10 +2,12 @@
 package micro
 
 import (
-	"net/http"
-
 	"github.com/micro/go-api/resolver"
+
+	"net/http"
 )
+
+const resolverName = "micro"
 
 // default resolver for legacy purposes
 // it uses proxy routing to resolve names
@@ -20,7 +22,7 @@ func (r *Resolver) Resolve(req *http.Request) (*resolver.Endpoint, error) {
 
 	switch r.Options.Handler {
 	// internal handlers
-	case "meta", "api", "rpc", "micro":
+	case "meta", "api", "rpc", resolverName:
 		name, method = apiRoute(req.URL.Path)
 	default:
 		method = req.Method
@@ -34,7 +36,7 @@ func (r *Resolver) Resolve(req *http.Request) (*resolver.Endpoint, error) {
 }
 
 func (r *Resolver) String() string {
-	return "micro"
+	return resolverName
 }
 
 // NewResolver creates a new micro resolver

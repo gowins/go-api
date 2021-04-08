@@ -2,9 +2,9 @@
 package router
 
 import (
-	"net/http"
-
 	"github.com/micro/go-api"
+
+	"net/http"
 )
 
 // Router is used to determine an endpoint for a request

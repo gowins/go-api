@@ -16,6 +16,9 @@ import (
 	"github.com/micro/go-rcache"
 )
 
+const metaName = "meta"
+const rpcName = "rpc"
+
 // router is the default router
 type registryRouter struct {
 	exit chan bool
@@ -336,12 +339,12 @@ func (r *registryRouter) Route(req *http.Request) (*api.Service, error) {
 	// only use endpoint matching when the meta handler is set aka api.Default
 	switch r.opts.Handler {
 	// rpc handlers
-	case "meta", "api", "rpc":
+	case metaName, "api", rpcName:
 		handler := r.opts.Handler
 
 		// set default handler to api
-		if r.opts.Handler == "meta" {
-			handler = "rpc"
+		if r.opts.Handler == metaName {
+			handler = rpcName
 		}
 
 		// construct api service
