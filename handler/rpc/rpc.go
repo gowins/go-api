@@ -3,7 +3,6 @@ package rpc
 
 import (
 	"encoding/json"
-	"google.golang.org/grpc/balancer"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -15,13 +14,14 @@ import (
 	"github.com/micro/go-api/handler"
 	"github.com/micro/go-api/internal/proto"
 	"github.com/micro/go-micro/client"
+	"github.com/micro/go-micro/client/selector"
 	"github.com/micro/go-micro/codec"
 	"github.com/micro/go-micro/codec/jsonrpc"
 	"github.com/micro/go-micro/codec/protorpc"
 	"github.com/micro/go-micro/errors"
 	"github.com/micro/go-micro/registry"
-	"github.com/micro/go-micro/selector"
 	"github.com/micro/util/go/lib/ctx"
+	"google.golang.org/grpc/balancer"
 )
 
 const (
@@ -142,11 +142,10 @@ func (h *rpcHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		// make the call
 		var e error
 		for i := 0; i < 2; i++ {
-			e = c.Call(cx, req, &response, client.WithSelectOption(so));
+			e = c.Call(cx, req, &response, client.WithSelectOption(so))
 			if e == nil {
 				break
-			} else if ce := errors.Parse(e.Error());
-				ce.Detail != "" && !strings.Contains(ce.Detail, balancer.ErrTransientFailure.Error()) {
+			} else if ce := errors.Parse(e.Error()); ce.Detail != "" && !strings.Contains(ce.Detail, balancer.ErrTransientFailure.Error()) {
 				break
 			}
 		}
