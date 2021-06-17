@@ -4,7 +4,7 @@ go 1.14
 
 replace (
 	github.com/hashicorp/consul => github.com/hashicorp/consul v1.5.1
-	github.com/micro/go-micro => github.com/gowins/go-micro v1.7.20
+	github.com/micro/go-micro => github.com/gowins/go-micro v1.7.21
 )
 
 require (
