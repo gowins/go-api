@@ -13,7 +13,7 @@ import (
 	"github.com/micro/go-api"
 	"github.com/micro/go-api/router"
 	"github.com/micro/go-micro/registry"
-	"github.com/micro/go-rcache"
+	rcache "github.com/micro/go-micro/registry/cache"
 )
 
 // router is the default router
